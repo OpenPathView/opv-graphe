@@ -1,6 +1,7 @@
 # Atrevrix Graphe
 
-The module atrevrix.graphe is a future OpenPathView module in active developpment.
+**This module is a future [OpenPathView](http://opv.li/) module in active developpment.**
+
 
 
 <html>
@@ -25,6 +26,52 @@ The module atrevrix.graphe is a future OpenPathView module in active developpmen
         <li>6) Reduce the node number (take one paramater each X meters)</li>
       </ul>
     </p>
+</html>
+
+## How to test
+
+You can used the test.py script that used the test.json data:
+
+
+```bash
+./test.py
+```
+
+It will generate 6 files (graphes), one files for each step describe below:
+
+* 01_points.json
+* 02_detect_nears_panorama.json
+* 03_merge_graphe.json
+* 04_get_endpoints.json
+* 05_reduce_path.json
+* 06_reduce_nodes.json
+
+You can visualize all this grahpe with the html file show_graphe.html. But first you have to launch a HTTP server. Python is our friend:
+
+#### Python2
+
+```bash
+python -m SimpleHTTPServer
+```
+
+#### Python3
+
+```bash
+python3 -m http.server
+```
+
+It will launch an HTTP server on port 8000. If you go on [http://127.0.0.1:8000](127.0.0.1:8000) you will got a documentation of what does the module. But if you only want to see the result of each step:
+
+<ul>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=01_points.json">http://127.0.0.1:8000/show_graphe.html?name=01_points.json</a><br /></li>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=02_detect_nears_panorama.json">http://127.0.0.1:8000/show_graphe.html?name=02_detect_nears_panorama.json</a><br /></li>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=03_merge_graphe.json">http://127.0.0.1:8000/show_graphe.html?name=03_merge_graphe.json</a><br /></li>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=04_get_endpoints.json">http://127.0.0.1:8000/show_graphe.html?name=04_get_endpoints.json</a><br /></li>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=05_reduce_path.json">http://127.0.0.1:8000/show_graphe.html?name=05_reduce_path.json</a><br /></li>
+<li><a href="http://127.0.0.1:8000/show_graphe.html?name=06_reduce_nodes.json">http://127.0.0.1:8000/show_graphe.html?name=06_reduce_nodes.json</a><br /></li>
+</ul>
+
+<html>
     <!-- ============================= Create graphe ============================= -->
     <h2>1) Create node in graphe with GPS point of each panorama</h2>
     <p>Just create Node with Point class from yours picture/panorama.<br />
