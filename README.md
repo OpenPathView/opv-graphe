@@ -147,7 +147,7 @@ for name, gps in data.items():
       Now we have our reference point (B), we will consider all node as near if the angle between BAX > <strong>alpha</strong>.<br />
       <img src="img/02_near_nodes_03.png" height="400" width="600"><br />
       <ul>
-        <li>Has the BAC angle is <strong>alpha</strong>, we don't take it has a near panorama.</li>
+        <li>Has the BAC angle is < <strong>alpha</strong>, we don't take it has a near panorama.</li>
         <li>But the BAD angle is > <strong>alpha</strong>, so we consider it has a near panorama.</li>
       </ul>
       <img src="img/02_near_nodes_04.png" height="400" width="600"><br />
