@@ -1,0 +1,7 @@
+*__pycache__/
+*.pyc
+.idea/
+venv/
+build/
+dist/
+atrevrix_graphe.egg-info/
