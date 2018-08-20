@@ -535,6 +535,9 @@ class Graphe(object):
             if endpoint in graphe.nodes:
                 graphe.add_end_points(endpoint)
 
+        graphe.path = self.path
+        graphe.paths = self.paths
+
         return graphe
 
     def get_sub_graphes(self, near_node=True):
@@ -590,7 +593,7 @@ class Graphe(object):
 
         return endpoints
 
-    def dijkstra(self, deb_node: str, end_nodes: str):
+    def dijkstra(self, deb_node: str, end_nodes: list):
         """Dijkstra"""
         path = {}
 

@@ -21,7 +21,7 @@
 The edge class
 """
 
-
+import copy
 import logging
 
 
@@ -42,6 +42,18 @@ class Edge(object):
         self.logger = logger if logger is not None else logging.getLogger(
             "%s:%s" % (__name__, self.__class__.__name__)
         )
+
+    def __deepcopy__(self, memodict={}):
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memodict[id(self)] = result
+        result.__name = copy.deepcopy(self.__name)
+        result.__source = copy.deepcopy(self.__source)
+        result.__dest = copy.deepcopy(self.__dest)
+        result.__data = copy.deepcopy(self.__data)
+        result.__distance = copy.deepcopy(self.__distance)
+        result.logger = copy.copy(self.logger)
+        return result
 
     @property
     def name(self):

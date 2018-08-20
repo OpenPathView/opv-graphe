@@ -42,6 +42,36 @@ class Point(object):
         self.z = z
         self.type = type
 
+    @property
+    def latitude(self):
+        """Get latitude"""
+        return self.x
+
+    @latitude.setter
+    def latitude(self, latitude):
+        """Set latitude"""
+        self.x = latitude
+
+    @property
+    def longitude(self):
+        """Get longitude"""
+        return self.y
+
+    @longitude.setter
+    def longitude(self, longitude):
+        """Set longitude"""
+        self.y = longitude
+
+    @property
+    def altitude(self):
+        """Get altitude"""
+        return self.z
+
+    @altitude.setter
+    def altitude(self, altitude):
+        """Set altitude"""
+        self.z = altitude
+
     def is_gps(self) -> bool:
         """Check if the point use GPS coordinate"""
         return self.type == POINT_TYPE_GPS

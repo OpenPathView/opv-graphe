@@ -140,22 +140,30 @@ class Node(object):
             "name": self.name,
             "data": self.data,
             "point": self.point.to_dict(),
-            "edges": [edge.name for edge in self.edges]
+            "edges": self.get_edges_name_list()
         }
+
+    def get_edges_name_list(self):
+        """Get edges name list"""
+        return [edge.name for edge in self.edges]
 
     def merge(self, node):
         """Merge Node"""
         for edge in node.edges:
-            if edge not in self.edges:
+            if edge.name not in self.get_edges_name_list():
                 self.edges.append(edge)
 
         for name, value in node.data.items():
             self.data[name] = value
 
-    def add_edge(self, edge: str):
+    def add_edge(self, edge):
         """Add edge"""
-        if edge not in self.edges:
+        if edge.name not in self.get_edges_name_list():
             self.edges.append(edge)
+
+    def __check_if_valid_edge(self, edge):
+        """Check if is a valid edge (source or dest must be name)"""
+        return edge.source == self.name or edge.dest == self.name
 
     def __successor(self, edge):
         """Get the successor for an edge"""
@@ -167,6 +175,11 @@ class Node(object):
         """Get successors"""
         successors = {}
         for edge in self.edges:
+            if not self.__check_if_valid_edge(edge):
+                self.logger.warning("Node %s have a strange edge %s (not an edge link to node)" % (
+                    self.name, edge.name
+                ))
+                continue
             name = self.__successor(edge)
             if name == self.name:
                 continue

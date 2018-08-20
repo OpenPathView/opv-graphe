@@ -38,7 +38,7 @@ def get_distance(gps_cord1: Point, gps_cord2: Point):
     # Wikipedia saids that Paris and Network are 5 852 km away
     # - https://fr.wikipedia.org/wiki/Orthodromie.
     >>> a = Point(x=48.850000, y=2.350000) # Paris
-    >>> b = Point(x=-74.000000, y=40.716667) # NewYork
+    >>> b = Point(x=40.716667, y=-74.000000) # NewYork
     >>> get_distance(a,b)
     5843114.788446997
     """
@@ -78,10 +78,8 @@ def get_distance(gps_cord1: Point, gps_cord2: Point):
     temp = math.cos(gps_cord1[0]) * math.cos(gps_cord2[0]) * math.cos(gps_cord2[1] - gps_cord1[1]) + \
            math.sin(gps_cord1[0]) * math.sin(gps_cord2[0])
 
-    if temp > 1.0:
-        temp = 1.0
-    elif temp < -1.0:
-        temp = -1.0
+    temp = 1.0 if temp > 1.0 else temp
+    temp = -1.0 if temp < -1.0 else temp
 
     return EARTH_RADIUS * (
         math.acos(
@@ -97,6 +95,11 @@ def get_angle(pano1: Point, pano2: Point, pano3: Point):
     :param pano2:
     :param pano3:
     :return:
+    >>> a = Point(x=48.850000, y=2.350000) # Paris
+    >>> b = Point(x=40.716667, y=-74.000000) # NewYork
+    >>> c = Point(x=9.08196, y=7.402968) # Abuja (Nigeria)
+    >>> get_angle(a, b, c)
+    1.9788164423528525
     """
 
     d_ab = get_distance(pano1, pano2)
