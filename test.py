@@ -6,7 +6,7 @@ import sys
 import json
 import copy
 
-from atrevrix.graphe import Point, Node, Graphe, GrapheHelper
+from opv.graphe import Point, Node, Graphe, GrapheHelper
 
 
 if __name__ == "__main__":

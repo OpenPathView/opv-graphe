@@ -28,10 +28,10 @@ import queue
 import logging
 import operator
 
-from atrevrix.graphe.exception import AtrevrixExceptionGraphe
-from atrevrix.graphe.node import Node
-from atrevrix.graphe.edge import Edge
-from atrevrix.graphe.math import get_angle, get_distance
+from opv.graphe.exception import AtrevrixExceptionGraphe
+from opv.graphe.node import Node
+from opv.graphe.edge import Edge
+from opv.graphe.math import get_angle, get_distance
 
 
 class Graphe(object):
@@ -40,7 +40,7 @@ class Graphe(object):
     A graphe have nodes, edges, endpoints, hot points and paths. You can use this class to get nears nodes,
     create edges, found subgraphe, found shortest path between nodes."""
 
-    def __init__(self, name, logger=None):
+    def __init__(self, name: str, logger: object = None) -> object:
         """
         :param name: The graphe name
         :param logger:
@@ -126,6 +126,11 @@ class Graphe(object):
     @property
     def endpoints(self) -> list:
         """Get endoints"""
+        return self.__endpoints
+
+    @property
+    def end_points(self) -> list:
+        """Get endpoints"""
         return self.__endpoints
 
     @endpoints.setter
@@ -486,6 +491,9 @@ class Graphe(object):
         for hotpoint in self.hotpoints:
             if hotpoint in self.nodes:
                 graphe.add_hotpoints(hotpoint)
+        for endpoint in self.endpoints:
+            if endpoint in graphe.nodes:
+                graphe.add_end_points(endpoint)
         return graphe
 
     def _bfs_get_subgraphe2(self, graphe_name):
@@ -633,11 +641,13 @@ class Graphe(object):
 
         def update_distance(node_a, node_b, distance):
             """Update distance of a node"""
-            if visited[node_b] > visited[node_a] + distance:
+
+            mdistance = distance["distance"] if isinstance(distance, dict) else distance
+            if visited[node_b] > visited[node_a] + mdistance:
                 self.logger.debug("Update distance for %s = %s, predecesor is %s" % (
-                    node_b, distance, node_a
+                    node_b, mdistance, node_a
                 ))
-                visited[node_b] = visited[node_a] + distance
+                visited[node_b] = visited[node_a] + mdistance
                 path[node_b] = node_a
 
         def get_path(end_node):
@@ -764,3 +774,5 @@ class Graphe(object):
 
         with open(filename, "w") as fic:
             fic.write(json.dumps(data))
+
+    # def __repr__(self):

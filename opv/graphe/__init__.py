@@ -21,11 +21,12 @@
 The atrevrix.graphe module can be used to create and reduce graphe from a list of GPS point
 """
 
-import atrevrix.graphe.utils
-from atrevrix.graphe.exception import AtrevrixExceptionGraphe
-from atrevrix.graphe.point import Point
-from atrevrix.graphe.math import EARTH_RADIUS, get_distance, get_angle
-from atrevrix.graphe.node import Node
-from atrevrix.graphe.edge import Edge
-from atrevrix.graphe.graphe import Graphe
-from atrevrix.graphe.graphe_helper import GrapheHelper
+import opv.graphe.utils
+from opv.graphe.exception import AtrevrixExceptionGraphe
+from opv.graphe.point import Point
+from opv.graphe.math import EARTH_RADIUS, get_distance, get_angle
+from opv.graphe.node import Node
+from opv.graphe.edge import Edge
+from opv.graphe.graphe import Graphe
+from opv.graphe.graphe_helper import GrapheHelper
+from opv.graphe.api import graphe_api

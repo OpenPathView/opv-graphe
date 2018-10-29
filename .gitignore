@@ -7,4 +7,6 @@ dist/
 atrevrix_graphe.egg-info/
 .coverage.karadoc.9494.088826
 .pytest_cache/
-htmlcov/
+htmlcov
+opv_graphe.egg-info/
+.coverage

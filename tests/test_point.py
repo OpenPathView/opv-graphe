@@ -1,6 +1,6 @@
 
-from atrevrix.graphe import Point
-from atrevrix.graphe.point import POINT_TYPE_GPS
+from opv.graphe import Point
+from opv.graphe.point import POINT_TYPE_GPS
 
 
 def test_point():

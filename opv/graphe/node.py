@@ -22,7 +22,7 @@ import json
 import copy
 import logging
 
-from atrevrix.graphe.point import Point
+from opv.graphe.point import Point
 
 
 class Node(object):
@@ -94,6 +94,22 @@ class Node(object):
         :return:
         """
         self.__data = data
+
+    @property
+    def id(self):
+        return self.name
+
+    @property
+    def x(self):
+        return self.point.x
+
+    @property
+    def y(self):
+        return self.point.y
+
+    @property
+    def z(self):
+        return self.point.z
 
     @property
     def edges(self) -> list:

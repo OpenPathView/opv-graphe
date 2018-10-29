@@ -23,9 +23,9 @@ import json
 import copy
 import logging
 
-from atrevrix.graphe.math import get_angle, get_distance
-from atrevrix.graphe.edge import Edge
-from atrevrix.graphe.graphe import Graphe
+from opv.graphe.math import get_angle, get_distance
+from opv.graphe.edge import Edge
+from opv.graphe.graphe import Graphe
 
 
 class GrapheHelper(object):
@@ -262,7 +262,14 @@ class GrapheHelper(object):
         # Get new endpoints without start and stop node of the longest graphe
         to_test = [longest_path["source"], longest_path["dest"]]
         endpoints = copy.copy(graphe.endpoints)
-        endpoints.remove(to_test[0]);endpoints.remove(to_test[1])
+        try:
+            endpoints.remove(to_test[0])
+        except ValueError:
+            pass
+        try:
+            endpoints.remove(to_test[1])
+        except ValueError:
+            pass
         endpoints += copy.copy(graphe.hotpoints)
 
         for i in range(0, 2):

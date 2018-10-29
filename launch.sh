@@ -21,5 +21,5 @@
 
 file=${1:-"tests/test_*.py"}
 
-pytest --cov-report html --cov=atrevrix.graphe --cov-config .conf_coverage.conf ${file}
+pytest --cov-report html --cov=opv.graphe --cov-config .conf_coverage.conf ${file}
 

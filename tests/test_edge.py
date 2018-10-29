@@ -1,4 +1,4 @@
-from atrevrix.graphe import Edge
+from opv.graphe import Edge
 
 
 def edge_test(edge, source, dest, data, distance):

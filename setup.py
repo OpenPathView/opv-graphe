@@ -25,17 +25,17 @@ from setuptools import setup, find_packages
 # Merci Sam & Max : http://sametmax.com/creer-un-setup-py-et-mettre-sa-bibliotheque-python-en-ligne-sur-pypi/
 
 setup(
-    name='atrevrix-graphe',
+    name='opv-graphe',
     version='0.0.1',
     packages=find_packages(),
-    namespace_packages=['atrevrix'],
+    namespace_packages=['opv'],
     author="Christophe NOUCHET",
     author_email="nouchet.christophe@gmail.com",
-    description="Atrevrix Graphe",
+    description="OPV Graphe",
     long_description="The goal of this module is to create virtual tour from a campaign of panorama taken in a hiking\
      session.",
     include_package_data=True,
-    url='https://github.com/Valdimus/Atrevrix-Graphe',
+    url='https://github.com/OpenPathView/opv-graphe',
     classifiers=[
         "Programming Language :: Python",
         "Development Status :: 2 - Pre-Alpha",

@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from atrevrix.graphe import Node, Point, Edge
+from opv.graphe import Node, Point, Edge
 
 
 def node_test(node, name, point, data, edges):

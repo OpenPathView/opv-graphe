@@ -22,7 +22,7 @@
 
 import math
 
-from atrevrix.graphe.point import Point
+from opv.graphe.point import Point
 
 EARTH_RADIUS = 6378000
 

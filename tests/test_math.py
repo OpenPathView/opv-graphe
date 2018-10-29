@@ -1,4 +1,4 @@
-from atrevrix.graphe import get_distance, get_angle, Point
+from opv.graphe import get_distance, get_angle, Point
 
 
 def test_distance():
