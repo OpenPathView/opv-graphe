@@ -67,7 +67,7 @@ You can test with our campaign at [Parc national des Ecrins](http://www.ecrins-p
 
 ## Shitty interface to see your graphe
 
-I made a shitty web interface to show graphe (don't judge me, I'm not a frontend guy). To us it:
+I made a shitty web interface to show graphe (don't judge me, I'm not a frontend guy). To use it:
 
 ```bash
 python3 -m http.server
