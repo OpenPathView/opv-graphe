@@ -48,7 +48,10 @@ setup(
     ],
     install_requires=[
         'Flask',
-        "gunicorn"
+        "gunicorn",
+        "flasgger",
+        "marshmallow",
+        "apispec"
     ],
     license="GPL3",
 )
