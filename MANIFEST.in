@@ -1,0 +1,2 @@
+recursive-include opv/graphe/templates *
+recursive-include opv/graphe/static *

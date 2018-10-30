@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenSFM</title>
+    <!--
+    This project use:
+        Leaflet => https://leafletjs.com/
+        leaflet-color-markers => https://github.com/pointhi/leaflet-color-markers
+    -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" />
+    <script src="{{ url_for('static', filename='lib/leaflet/leaflet.js') }}" ></script>
+    <style>
+    html, body{
+      margin:0px;
+      padding:0px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+
+    #map{
+      margin:0px;
+      padding:0px;
+      width: 90%;
+      height: 100%;
+    }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div style="width: 10%;height: 100%; float:left">
+      <h3>Control Pannel</h3>
+      <label style="float: left;width: 100%"><input type="checkbox" id="myCheck" onclick="toto()">Show Nodes</label>
+      <button style="float: left;width: 100%" onclick="myFunction()">Load Data</button>
+    </div>
+    <script>
+
+      //Init leaflet map with osm data
+      map = new L.Map('map');
+
+      //Create the tile layer with correct attribution
+      var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+      var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 19, attribution: osmAttrib});
+      var showNode = false
+      function add_to_map(test){
+
+        // Empty the map
+        map.eachLayer(function (layer) {
+            map.removeLayer(layer);
+        });
+
+        // Icon used
+        var greenIcon = new L.Icon({
+          iconUrl: '{{ url_for('static', filename='img/marker-icon-2x-green.png') }}',
+          shadowUrl: '{{ url_for('static', filename='img/marker-shadow.png') }}',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+
+        var redIcon = new L.Icon({
+          iconUrl: '{{ url_for('static', filename='img/marker-icon-2x-red.png') }}',
+          shadowUrl: '{{ url_for('static', filename='img/marker-shadow.png') }}',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+
+        for(var name in test["nodes"]){
+          element = test["nodes"][name];
+          map.setView(new L.LatLng(element[1], element[2]), 14);
+          map.addLayer(osm);
+          break;
+        }
+
+        // Add nodes
+        if(showNode === true){
+          for(var i = 0; i < test["nodes"].length;i++){
+            new L.marker([test["nodes"][i][1],test["nodes"][i][2]])
+              .bindPopup("Node " + test["nodes"][i][0])
+              .addTo(map);
+          }
+        }
+
+        // Add end_points
+        for(var i = 0; i < test["end_points"].length;i++){
+          new L.marker([test["end_points"][i][1],test["end_points"][i][2]], {icon: greenIcon})
+            .bindPopup("End Point " + test["end_points"][i][0])
+            .addTo(map);
+        }
+
+        // Add Hotpoints
+        for(var i = 0; i < test["hotpoints"].length;i++){
+          new L.marker([test["hotpoints"][i][1],test["hotpoints"][i][2]], {icon: redIcon})
+            .bindPopup("End Point " + test["hotpoints"][i][0])
+            .addTo(map);
+        }
+
+        // Add Edges
+        var polyline = L.polyline(test["edges"], {color: 'red'}).addTo(map);
+        map.fitBounds(polyline.getBounds());
+      }
+      function myFunction() {
+        var txt;
+        var person = prompt("Enter graphe in json format", "");
+        if (person == null || person == "") {}
+        else {
+          txt = JSON.parse(person);
+          add_to_map(txt)
+        }
+      }
+      function toto(){
+        var checkBox = document.getElementById("myCheck");
+        showNode = checkBox.checked;
+      }
+    </script>
+</body>
+</html>

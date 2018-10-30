@@ -21,8 +21,8 @@
 This is shit, but it's working!
 """
 
-
-from flask import Flask, jsonify, request, Blueprint
+import json
+from flask import Flask, jsonify, request, Blueprint, render_template
 from marshmallow import post_load, pre_dump, post_dump
 from flasgger import Swagger, SwaggerView, Schema, fields
 
@@ -349,7 +349,61 @@ class All(SwaggerView):
         return jsonify(dump_graphe(final_graphe))
 
 
-graphe_api = Blueprint('graphe', __name__)
+class GrapheLeafletOpti(SwaggerView):
+    description = "Graphe API"
+    tags = ["graphe"]
+    # parameters = [Graphe]
+    parameters = [
+        {
+            "name": "body",
+            "in": "body",
+            "schema": GrapheSchema,
+            "required": True
+        }
+    ]
+    responses = {
+        200: {
+            "description": "The graphe reduced",
+            "type": "dict"
+        }
+    }
+
+    def post(self):
+        """
+        Tranform GrapheSchme to GrapheLeafletSchema
+        """
+        data = request.json
+        nodes = []
+        endpoints = []
+        hotpoints = []
+        nodes_dict = {}
+        edges = []
+
+        for node in data["nodes"]:
+            line = [node["id"], node["x"], node["y"]]
+            if node["id"] in data["end_points"]:
+                endpoints.append(line)
+            if node["id"] in data["hotpoints"]:
+                hotpoints.append(line)
+            nodes.append(line)
+            nodes_dict[node["id"]] = node
+
+        for edge in data["edges"]:
+            source = nodes_dict[edge["source"]]
+            dest = nodes_dict[edge["dest"]]
+            edges.append([
+                [source["x"], source["y"]],
+                [dest["x"], dest["y"]]
+            ])
+        return jsonify({
+            "nodes": nodes,
+            "end_points": endpoints,
+            "hotpoints": hotpoints,
+            "edges": edges
+        })
+
+
+graphe_api = Blueprint('graphe', __name__, template_folder="templates")
 
 
 graphe_api.add_url_rule(
@@ -376,5 +430,19 @@ graphe_api.add_url_rule(
     methods=['POST']
 )
 
+graphe_api.add_url_rule(
+    '/to_leaflet',
+    view_func=GrapheLeafletOpti.as_view('Graphe5'),
+    methods=['POST']
+)
 
-
+@graphe_api.route("/map")
+def get_map():
+    """Use a Leaflet map to show graphe
+        You can use this endpoint to have a map to show the graphe on
+        ---
+        responses:
+          200:
+            description: The map page
+        """
+    return render_template("show_graphe.html")

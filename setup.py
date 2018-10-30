@@ -36,6 +36,7 @@ setup(
      session.",
     include_package_data=True,
     url='https://github.com/OpenPathView/opv-graphe',
+    zip_safe=False,
     classifiers=[
         "Programming Language :: Python",
         "Development Status :: 2 - Pre-Alpha",
@@ -44,6 +45,10 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
         "Topic :: Software Development :: Libraries",
+    ],
+    install_requires=[
+        'Flask',
+        "gunicorn"
     ],
     license="GPL3",
 )

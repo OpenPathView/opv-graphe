@@ -1,12 +1,7 @@
 # OPV Graphe
 
-**This module is a future [OpenPathView](http://opv.li/) module in active developpment.**
-
-
-
 <html>
       <strong>This document is written in Broken English</strong><br/>
-      <strong>This module is still in active developpement, don't used it in production</strong><br />
       The goal of this module is to create virtual tour from a campaign of panorama taken in a hiking session. <br />
       At the end of the session, you only have the GPS position of the panorama, and it's not simple to link all panorama together to create a virtual tour. A simple way
       to resovle this problem is to take the hour of each panorama as a parameter to link them. But if you have multiples cameras or your cameras are not really precise
@@ -18,12 +13,9 @@
       </ul>
       The main step of the resolution of this problems are:
       <ul>
-        <li>1) Create node in graphe with GPS point of each panorama</li>
-        <li>2) Detect near nodes between each nodes</li>
-        <li>3) Detect subgraphe and merge them</li>
-        <li>4) Search endpoints of the merge graphe</li>
-        <li>5) Compute path between endpoints and hotpoints and reduce the graphe</li>
-        <li>6) Reduce the node number (take one paramater each X meters)</li>
+        <li>1) Detect near nodes between each nodes, and create edges</li>
+        <li>2) Search endpoints of the merge graphe</li>
+        <li>3) Reduce the node number (take one paramater each X meters)</li>
       </ul>
     </p>
 </html>
@@ -35,6 +27,7 @@ Create a virtualenv to test it
 
 ```bash
 pyvenv venv
+source venv/bin/activate
 ```
 
 Install requirements
@@ -43,6 +36,11 @@ Install requirements
 pip install -r requirements.txt
 ```
 
+Install the package
+
+```bash
+python
+```
 ## How to launch
 
 You can launch the api with this command:
