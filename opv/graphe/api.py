@@ -332,14 +332,12 @@ class All(SwaggerView):
         Reduce graphe, reduce the number of node and edge
         """
         graphe = load_graphe(request.json)
-        number_end_points = graphe.endpoints
+        number_end_points = len(graphe.endpoints)
         graphe_helper = GrapheHelper()
         graphe.detect_nears_nodes(ref_angle=radial_spacing, ref_radius=perimeter)
         graphe.create_edge_from_near_nodes()
-        print(graphe.endpoints)
         graphes = graphe.get_sub_graphes()
         graphe = graphe_helper.merge_subgraphe(graphes)
-        print(graphe.endpoints)
         if number_end_points == 0:
             graphe.get_end_points()
         final_graphe = graphe_helper.reduce_path(graphe, reduce=min_path)

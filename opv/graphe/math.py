@@ -75,6 +75,7 @@ def get_distance(gps_cord1: Point, gps_cord2: Point):
     # Avec R = 6378000 mètres
     # d = R*acos((cos(lat1)*cos(lat2) * (cos(long2 - long1) + sin(lat1)*sin(lat2)))
 
+
     temp = math.cos(gps_cord1[0]) * math.cos(gps_cord2[0]) * math.cos(gps_cord2[1] - gps_cord1[1]) + \
            math.sin(gps_cord1[0]) * math.sin(gps_cord2[0])
 
@@ -122,11 +123,14 @@ def get_angle(pano1: Point, pano2: Point, pano3: Point):
     # - 2 * a * b * cos(OAB) = c * c - a * a - b * b
     # cos(OAB) = (1 / (-2 * a * b)) * (c * c - a * a - b * b)
     # OAB = acos((1 / (-2 * a * b)) * (c * c - a * a - b * b)
-    calcul = (-1.0 / (2.0 * d_ab * d_ac)) * (
-        d_bc * d_bc -
-        d_ab * d_ab -
-        d_ac * d_ac
-    )
-    calcul = 1.00 if calcul > 1.0 else calcul
-    calcul = -1.00 if calcul < -1.0 else calcul
-    return math.acos(calcul)
+    try:
+        calcul = (-1.0 / (2.0 * d_ab * d_ac)) * (
+            d_bc * d_bc -
+            d_ab * d_ab -
+            d_ac * d_ac
+        )
+        calcul = 1.00 if calcul > 1.0 else calcul
+        calcul = -1.00 if calcul < -1.0 else calcul
+        return math.acos(calcul)
+    except ZeroDivisionError:
+        return 0.0
