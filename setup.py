@@ -48,6 +48,7 @@ setup(
     ],
     install_requires=[
         'Flask',
+        "Flask-Cors",
         "gunicorn",
         "flasgger",
         "marshmallow",
