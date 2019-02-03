@@ -20,6 +20,16 @@
     </p>
 </html>
 
+## Test it with Docker
+
+```bash
+docker build -t opv-graphe -f Dockerfile .
+docker run -it -d -p 5015:5015 opv-graphe
+```
+
+Test it at:
+
+http://127.0.0.1:5015/apidocs/
 
 ## Installation
 
